@@ -1,10 +1,14 @@
 # Fuel Costs and Spatial Rail Accessibility — Replication Package
 
+<p align="center">
+  <img src="spatial_fuel_rail.png" alt="Fuel Costs and Spatial Rail Accessibility logo" width="260">
+</p>
+
 Replication material for the paper:
 
 **Fuel Costs and Spatial Rail Accessibility: Econometric Evidence from an Empirically-Weighted Network-Based 3SFCA Model**
 
-Published article: <https://www.sciencedirect.com/science/article/pii/S2210539526000994>
+Published article: https://www.sciencedirect.com/science/article/pii/S2210539526000994
 
 ## Replication workflow
 

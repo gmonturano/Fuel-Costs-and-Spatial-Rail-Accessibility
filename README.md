@@ -2,7 +2,9 @@
 # Fuel Costs and Spatial Rail Accessibility — Replication Package
 
 <p align="center">
-  <img src="cover.jpg" alt="Network-Based 3SFCA Spatial Rail Accessibility Framework" width="700">
+  <img src="Mappe_descrnetwork_EN3SFCA_DIRECTIONAL_FINAL_WITH_BORDER_page-0001.jpg"
+       alt="Spatial Rail Accessibility"
+       width="700">
 </p>
 
 Replication material accompanying the research article:

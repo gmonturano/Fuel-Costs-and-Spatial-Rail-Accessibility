@@ -1,104 +1,124 @@
+
 # Fuel Costs and Spatial Rail Accessibility — Replication Package
 
 <p align="center">
-  <img src="Mappe_descrnetwork_EN3SFCA_DIRECTIONAL_FINAL_WITH_BORDER.jpg" alt="Mappe_descrnetwork_EN3SFCA_DIRECTIONAL_FINAL_WITH_BORDER" width="260">
+  <img src="cover.jpg" alt="Network-Based 3SFCA Spatial Rail Accessibility Framework" width="700">
 </p>
 
-Replication material for the paper:
+Replication material accompanying the research article:
 
 **Fuel Costs and Spatial Rail Accessibility: Econometric Evidence from an Empirically-Weighted Network-Based 3SFCA Model**
 
-Published article: https://www.sciencedirect.com/science/article/pii/S2210539526000994
+**Published article:** https://www.sciencedirect.com/science/article/pii/S2210539526000994
+
+---
+
+## Overview
+
+This repository provides the main R scripts, estimation metadata, and supporting materials associated with the empirical analysis presented in the paper.
+
+The study investigates the relationship between fuel costs and spatial rail accessibility using an empirically weighted network-based Three-Step Floating Catchment Area (3SFCA) framework.
+
+The empirical analysis combines spatial accessibility indicators with three complementary econometric approaches:
+
+- **Two-Way Fixed Effects (TWFE):** controlling for unobserved time-invariant heterogeneity and common temporal effects.
+- **Instrumental Variables (IV/2SLS):** addressing potential endogeneity.
+- **Double/Debiased Machine Learning (DML):** allowing flexible nuisance-function estimation within a causal estimation framework.
+
+The repository focuses on the principal estimation procedures rather than the entire database construction process.
 
 ## Replication workflow
 
 ```mermaid
 flowchart TD
-    A[Processed estimation panel] --> B[Metadata workbook]
-    B --> C1[TWFE specifications]
-    B --> C2[IV / 2SLS specifications]
-    B --> C3[Double Machine Learning specifications]
-    A --> D[Access_norm panel object]
-    D --> C1
-    D --> C2
-    D --> C3
-    C1 --> E1[R/01_twfe_metadata.R]
-    C2 --> E2[R/02_iv_metadata.R]
-    C3 --> E3[R/03_dml_metadata.R]
-    E1 --> F[results/tables]
+    A[Processed estimation panel] --> B[Access_norm panel object]
+    C[Metadata workbook] --> D[Model specifications]
+
+    B --> E1[TWFE estimation]
+    B --> E2[IV / 2SLS estimation]
+    B --> E3[Double / Debiased Machine Learning]
+
+    D --> E1
+    D --> E2
+    D --> E3
+
+    E1 --> F[Econometric outputs]
     E2 --> F
     E3 --> F
-    F --> G[Machine-readable replication outputs]
+
+    F --> G[Replication results]
 ```
 
 ## Repository structure
 
 ```text
-R/
-  00_functions.R
-  01_twfe_metadata.R
-  02_iv_metadata.R
-  03_dml_metadata.R
-  99_run_all.R
-
-data/
-  processed/
-    DB_finale_3SFCA_panel_sample_100rows.RData
-    README.md
-  metadata/
-    Meta_fusco_dm.xlsx
-
-results/
-  tables/
+Fuel-Costs-and-Spatial-Rail-Accessibility/
+│
+├── code/
+│   ├── 00_functions.R
+│   ├── 01_twfe_metadata.R
+│   ├── 02_iv_metadata.R
+│   ├── 03_dml_metadata.R
+│   ├── 3SFCA_panel.R
+│   ├── 99_run_all.R
+│   └── Meta_fusco_dm.xlsx
+│
+├── db/
+│   └── Access_norm_cut.RData
+│
+├── cover.jpg
+│
+└── README.md
 ```
 
-## Data
+## Data availability
 
-The full processed estimation panel is not included because of file-size constraints and data redistribution restrictions.
+The empirical analysis relies on a processed panel dataset combining information on spatial rail accessibility, fuel costs, and additional explanatory variables.
 
-For the full replication, place this file here:
+The complete processed estimation panel is not distributed through this repository.
+
+A reduced database is included to facilitate the inspection of the empirical framework, variable definitions, and estimation procedures.
+
+Additional information regarding the database construction process and supporting materials can be obtained from the authors upon reasonable request, subject to applicable data-sharing restrictions.
+
+### Reduced sample database
+
+The repository includes:
 
 ```text
-data/processed/DB_finale_3SFCA_panel.RData
+db/Access_norm_cut.RData
 ```
 
-The file must contain the R object:
+This file contains a reduced version of the processed estimation panel.
 
-```r
-Access_norm
-```
+The sample database is provided for:
 
-## 100-row sample
+- Inspection of the database structure and variable names.
+- Examination of the estimation workflow.
+- Verification of metadata compatibility.
+- Basic code-consistency checks.
 
-The repository can include a reduced version of the processed panel:
+**The reduced dataset is not intended to reproduce the published regression coefficients, standard errors, or statistical significance levels.**
+
+Full empirical replication requires the original processed estimation panel.
+
+## Metadata and econometric specifications
+
+The estimation scripts are organized through the metadata workbook:
 
 ```text
-data/processed/DB_finale_3SFCA_panel_sample_100rows.RData
+code/Meta_fusco_dm.xlsx
 ```
 
-This file should contain **100 rows and all columns** of the final estimation panel.
+The main specification groups are:
 
-The sample is useful to verify that scripts, metadata, variable names and package dependencies work. It is not intended to reproduce the published coefficients.
+| Metadata sheet | Estimation approach |
+|---|---|
+| GENERAL | Two-Way Fixed Effects (TWFE) |
+| IV | Instrumental Variables / Two-Stage Least Squares |
+| DBML | Double/Debiased Machine Learning |
 
-The scripts automatically use the full panel if available. If the full panel is missing, they fall back to the 100-row sample.
-
-## Metadata
-
-The estimation scripts are controlled by:
-
-```text
-data/metadata/Meta_fusco_dm.xlsx
-```
-
-Expected sheets:
-
-```text
-GENERAL   # TWFE specifications
-IV        # IV / 2SLS specifications
-DBML      # Double / Debiased Machine Learning specifications
-```
-
-Expected labels inside the metadata:
+The metadata define the principal elements of each specification, including:
 
 ```text
 dependent_var
@@ -108,28 +128,96 @@ instrument_vars
 interaction
 ```
 
+This structure allows multiple econometric specifications to be implemented within a consistent analytical framework.
+
+## Main R scripts
+
+### `code/00_functions.R`
+
+Contains auxiliary functions supporting model estimation and the organization of empirical results.
+
+### `code/01_twfe_metadata.R`
+
+Implements Two-Way Fixed Effects estimations based on the specifications contained in the metadata workbook.
+
+### `code/02_iv_metadata.R`
+
+Implements Instrumental Variables and Two-Stage Least Squares estimations.
+
+### `code/03_dml_metadata.R`
+
+Implements the Double/Debiased Machine Learning estimation framework.
+
+### `code/3SFCA_panel.R`
+
+Provides supporting procedures related to the construction and organization of the network-based spatial accessibility panel.
+
+### `code/99_run_all.R`
+
+Provides the main execution entry point for the available econometric estimation procedures.
+
+## Software requirements
+
+The empirical analysis was developed entirely in **R**.
+
+The scripts rely on packages for:
+
+- Data manipulation and transformation.
+- Panel-data econometrics.
+- Instrumental-variable estimation.
+- Machine learning.
+- Metadata-driven estimation.
+- Statistical reporting.
+
+Users should install the required dependencies specified in the individual scripts.
+
 ## How to run
 
-From the project root:
+Clone or download the repository and open the project root in R or RStudio.
+
+To execute the main estimation workflow:
 
 ```r
-source("R/99_run_all.R")
+source("code/99_run_all.R")
 ```
 
-Or run each block separately:
+Alternatively, run individual estimation procedures:
 
 ```r
-source("R/01_twfe_metadata.R")
-source("R/02_iv_metadata.R")
-source("R/03_dml_metadata.R")
+source("code/01_twfe_metadata.R")
+source("code/02_iv_metadata.R")
+source("code/03_dml_metadata.R")
 ```
 
-## Outputs
+The complete empirical analysis requires the original processed dataset and the corresponding metadata specifications.
 
-Outputs are generated in:
+The reduced database is intended for inspection and preliminary consistency checks.
 
-```text
-results/tables/
-```
+## Replication outputs
 
-The repository does not include the final published tables. The article is the official reference for the reported results. The code regenerates machine-readable outputs from the processed panel and metadata.
+The estimation scripts are designed to generate the econometric outputs associated with the models presented in the paper.
+
+Depending on the specification, these outputs may include:
+
+- Estimated coefficients.
+- Standard errors and statistical significance measures.
+- Model diagnostics.
+- Supplementary statistical summaries.
+
+The final published regression tables are not distributed as standalone files.
+
+The published article remains the official reference for the reported results and their interpretation.
+
+## Additional code availability
+
+This repository provides the **main coding procedures used for the empirical estimations**.
+
+The full set of coding files, including database construction routines, preprocessing procedures, auxiliary analyses, and additional robustness checks, is available from the authors upon reasonable request, subject to applicable data-sharing restrictions.
+
+## Citation
+
+If you use this replication material, please cite the associated research article:
+
+**Fuel Costs and Spatial Rail Accessibility: Econometric Evidence from an Empirically-Weighted Network-Based 3SFCA Model.**
+
+Published article: https://www.sciencedirect.com/science/article/pii/S2210539526000994

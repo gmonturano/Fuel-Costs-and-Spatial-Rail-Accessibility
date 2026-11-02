@@ -1,7 +1,7 @@
 # Fuel Costs and Spatial Rail Accessibility — Replication Package
 
 <p align="center">
-  <img src="Mappe_descrnetwork_EN3SFCA_DIRECTIONAL_FINAL_WITH_BORDER.pdf" alt="Fuel Costs and Spatial Rail Accessibility logo" width="260">
+  <img src="Mappe_descrnetwork_EN3SFCA_DIRECTIONAL_FINAL_WITH_BORDER.png" alt="Fuel Costs and Spatial Rail Accessibility logo" width="260">
 </p>
 
 Replication material for the paper:
